@@ -4,8 +4,13 @@
  3. NVIDIA Container Toolkit (nvidia-docker2) OR WSL2 installed so that you can use GPU inside
  Docker.
 
-### Run dockerfile
-` docker run --gpus all \-it \-p 8188:8188 \--name comfyui-instance \
- comfyui-gpu`
+### Build Dockerfile
+`docker build -t comfyui-gpu .`
+`docker tag comfyui-gpu codingwithhassan/comfyui:latest`
+`docker push codingwithhassan/comfyui:latest`
+
+### Run Dockerfile
+`docker run --gpus all -it -p 8188:8188 --name comfyui-instance comfyui-gpu`
+
 ### Run docker-compose
 `docker compose up -d`
