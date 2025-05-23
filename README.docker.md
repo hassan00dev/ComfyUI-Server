@@ -4,6 +4,13 @@
  3. NVIDIA Container Toolkit (nvidia-docker2) OR WSL2 installed so that you can use GPU inside
  Docker.
 
+## Installed Nodes
+* ComfyUI-Manager
+* comfy-portal-endpoint
+* ComfyUI-Lora-Manager
+* comfyui_essentials
+* comfyui_controlnet_aux
+
 ### Build Dockerfile
 `docker build -t comfyui-gpu .`
 `docker tag comfyui-gpu codingwithhassan/comfyui:latest`
