@@ -27,10 +27,18 @@ download_civitai() {
 
 # ==== NODE PACKS ====
 git clone https://github.com/ltdrdata/ComfyUI-Manager.git /workspace/ComfyUI/custom_nodes/ComfyUI-Manager
+pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI-Manager/requirements.txt
+
 git clone https://github.com/ShunL12324/comfy-portal-endpoint.git /workspace/ComfyUI/custom_nodes/comfy-portal-endpoint
+
 git clone https://github.com/willmiao/ComfyUI-Lora-Manager.git /workspace/ComfyUI/custom_nodes/ComfyUI-Lora-Manager
+pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI-Lora-Manager/requirements.txt
+
 git clone https://github.com/cubiq/ComfyUI_essentials.git /workspace/ComfyUI/custom_nodes/ComfyUI_essentials
+pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI_essentials/requirements.txt
+
 git clone https://github.com/Fannovel16/comfyui_controlnet_aux.git /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux
+pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/requirements.txt
 
 # ==== HUGGING FACE MODELS ====
 download_hf SG161222/Realistic_Vision_V5.1_noVAE "$MODEL_DIR"
@@ -43,6 +51,8 @@ download_civitai "$VAE_DIR" "vae-ft-mse.safetensors" "https://civitai.com/api/do
 download_civitai "$LORA_DIR" "AnimeLora_v2.safetensors" "https://civitai.com/api/download/models/122658?type=LoRA"
 
 echo "✅ All models downloaded. Starting ComfyUI..."
+
+# pip3 install --upgrade --force-reinstall -r requirements.txt --target .\modules
 
 # Start ComfyUI
 cd /workspace/ComfyUI
