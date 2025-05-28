@@ -1,9 +1,7 @@
-# Already installed nvidia cuda drivers to leverage GPU
 FROM --platform=linux/amd64 nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 
-# environment variables
-ENV DEBIAN_FRONTEND=noninteractive \
-                        TZ=Etc/UTC
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
@@ -11,25 +9,26 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
     python3-dev \
     wget \
+    curl \
     libgl1 \
+    build-essential \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace/ComfyUI
+
 COPY . .
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 RUN pip3 install --upgrade pip
+RUN pip3 install torch==2.1.0+cu118 torchvision==0.16.0+cu118 --index-url https://download.pytorch.org/whl/cu118
 RUN pip3 install --no-cache-dir -r requirements.txt
-
-RUN huggingface-cli download fofr/comfyui checkpoints/anything-v3-fp16-pruned.safetensors --repo-type model --local-dir /workspace/ComfyUI/models/checkpoints/ --local-dir-use-symlinks False
-# RUN huggingface-cli download SG161222/Realistic_Vision_V5.1_noVAE --repo-type model --local-dir /workspace/ComfyUI/models/checkpoints/ --local-dir-use-symlinks False
-
-RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git /workspace/ComfyUI/custom_nodes/ComfyUI-Manager
-RUN git clone https://github.com/ShunL12324/comfy-portal-endpoint.git /workspace/ComfyUI/custom_nodes/comfy-portal-endpoint
-RUN git clone https://github.com/willmiao/ComfyUI-Lora-Manager.git /workspace/ComfyUI/custom_nodes/ComfyUI-Lora-Manager
-RUN git clone https://github.com/cubiq/ComfyUI_essentials.git /workspace/ComfyUI/custom_nodes/ComfyUI_essentials
-RUN git clone https://github.com/Fannovel16/comfyui_controlnet_aux.git /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux
 
 RUN pip install --upgrade --force-reinstall -r requirements.txt --target .\modules
 
 EXPOSE 8188
-ENTRYPOINT ["python3", "main.py", "--dont-print-server"]
-CMD ["--listen", "0.0.0.0", "--port", "8188"]
+ENTRYPOINT ["/start.sh"]
