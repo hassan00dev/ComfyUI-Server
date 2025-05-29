@@ -12,7 +12,7 @@
 * comfyui_controlnet_aux
 
 ### Build Dockerfile
-`docker build -t comfyui-gpu .`
+`docker build --no-cache -t comfyui-gpu .`
 `docker tag comfyui-gpu codingwithhassan/comfyui:latest`
 `docker push codingwithhassan/comfyui:latest`
 

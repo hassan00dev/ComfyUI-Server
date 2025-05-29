@@ -40,20 +40,23 @@ pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI_essential
 git clone https://github.com/Fannovel16/comfyui_controlnet_aux.git /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux
 pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/requirements.txt
 
-# ==== HUGGING FACE MODELS ====
+# === Download Hugging Face models ===
 download_hf SG161222/Realistic_Vision_V5.1_noVAE "$MODEL_DIR"
 download_hf runwayml/stable-diffusion-v1-5 "$MODEL_DIR"
 download_hf stabilityai/sd-vae-ft-mse "$VAE_DIR"
 
-# ==== CIVITAI MODELS ====
+# === Download Civitai models ===
 download_civitai "$MODEL_DIR" "DreamShaper_8.safetensors" "https://civitai.com/api/download/models/128713?type=Model&format=SafeTensor&size=full&fp=fp16"
 download_civitai "$VAE_DIR" "vae-ft-mse.safetensors" "https://civitai.com/api/download/models/94492?type=VAE&format=SafeTensor"
 download_civitai "$LORA_DIR" "AnimeLora_v2.safetensors" "https://civitai.com/api/download/models/122658?type=LoRA"
 
-echo "✅ All models downloaded. Starting ComfyUI..."
+echo "✅ All downloads complete."
 
-# pip3 install --upgrade --force-reinstall -r requirements.txt --target .\modules
-
-# Start ComfyUI
+# === Launch ComfyUI in background ===
+echo "🖼️ Launching ComfyUI on port 8188..."
 cd /workspace/ComfyUI
-python3 main.py --dont-print-server --listen 0.0.0.0 --port 8188
+python3 main.py --dont-print-server --listen 0.0.0.0 --port 8188 &
+
+# === Launch Jupyter Notebook ===
+echo "📓 Launching Jupyter Notebook on port 8888..."
+jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --NotebookApp.token='' --NotebookApp.password='' --allow-root
