@@ -1,0 +1,70 @@
+# Ignore Git files
+.git
+.gitignore
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Environment variables and secrets
+.env
+.env.*.local
+
+# IDE and editor directories
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Docker-related
+Dockerfile*
+docker-compose.yml
+.dockerignore
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# Python virtual environments
+venv/
+env/
+.venv/
+
+# macOS files
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
+ehthumbs.db
+
+# Checkpoints, models, and large assets
+*.ckpt
+*.safetensors
+*.pt
+
+# ComfyUI-specific caches and user data
+cache/
+logs/
+output/
+uploads/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.lock
+
+# Node.js dependencies (if any frontend tools used)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+*.sh

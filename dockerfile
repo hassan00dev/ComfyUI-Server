@@ -28,16 +28,6 @@ RUN pip3 install --upgrade pip \
 COPY . .
 COPY --chmod=755 start.sh /start.sh
 
-WORKDIR /workspace/ComfyUI/custom_nodes
-
-RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git && \
-    git clone https://github.com/ShunL12324/comfy-portal-endpoint.git && \
-    git clone https://github.com/willmiao/ComfyUI-Lora-Manager.git && \
-    git clone https://github.com/cubiq/ComfyUI_essentials.git && \
-    git clone https://github.com/Fannovel16/comfyui_controlnet_aux.git
-
-WORKDIR /workspace/ComfyUI
-
 EXPOSE 8188
 EXPOSE 8888
 
