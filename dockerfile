@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libsm6 \
     libxext6 \
     libxrender-dev \
+    dos2unix \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace/ComfyUI
@@ -27,6 +28,7 @@ RUN pip3 install --upgrade pip \
 
 COPY . .
 COPY --chmod=755 start.sh /start.sh
+RUN dos2unix /start.sh
 
 EXPOSE 8188
 EXPOSE 8888
