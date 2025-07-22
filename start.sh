@@ -3,10 +3,11 @@
 echo "Starting setup..."
 
 MODEL_DIR="/workspace/ComfyUI/models/checkpoints"
+CONTROLNET_DIR="/workspace/ComfyUI/models/controlnet"
 VAE_DIR="/workspace/ComfyUI/models/vae"
 LORA_DIR="/workspace/ComfyUI/models/loras"
 
-mkdir -p "$MODEL_DIR" "$VAE_DIR" "$LORA_DIR"
+mkdir -p "$MODEL_DIR" "$CONTROLNET_DIR" "$VAE_DIR" "$LORA_DIR"
 
 # Function to download from Hugging Face
 download_hf() {
@@ -26,13 +27,13 @@ download_civitai() {
 }
 
 # ==== NODE PACKS ====
+git clone https://github.com/willmiao/ComfyUI-Lora-Manager.git /workspace/ComfyUI/custom_nodes/ComfyUI-Lora-Manager
+pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI-Lora-Manager/requirements.txt
+
 git clone https://github.com/ltdrdata/ComfyUI-Manager.git /workspace/ComfyUI/custom_nodes/ComfyUI-Manager
 pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI-Manager/requirements.txt
 
 git clone https://github.com/ShunL12324/comfy-portal-endpoint.git /workspace/ComfyUI/custom_nodes/comfy-portal-endpoint
-
-git clone https://github.com/willmiao/ComfyUI-Lora-Manager.git /workspace/ComfyUI/custom_nodes/ComfyUI-Lora-Manager
-pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI-Lora-Manager/requirements.txt
 
 git clone https://github.com/cubiq/ComfyUI_essentials.git /workspace/ComfyUI/custom_nodes/ComfyUI_essentials
 pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI_essentials/requirements.txt
@@ -40,10 +41,25 @@ pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI_essential
 git clone https://github.com/Fannovel16/comfyui_controlnet_aux.git /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux
 pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/comfyui_controlnet_aux/requirements.txt
 
+git clone https://github.com/sipherxyz/comfyui-art-venture.git /workspace/ComfyUI/custom_nodes/comfyui-art-venture
+pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/comfyui-art-venture/requirements.txt
+
+git clone https://github.com/BadCafeCode/masquerade-nodes-comfyui.git /workspace/ComfyUI/custom_nodes/masquerade-nodes-comfyui
+
+git clone https://github.com/Loewen-Hob/rembg-comfyui-node-better.git /workspace/ComfyUI/custom_nodes/rembg-comfyui-node-better
+
+git clone https://github.com/ltdrdata/ComfyUI-Impact-Pack.git /workspace/ComfyUI/custom_nodes/ComfyUI-Impact-Pack
+pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/ComfyUI-Impact-Pack/requirements.txt
+
+git clone https://github.com/lldacing/comfyui-easyapi-nodes.git /workspace/ComfyUI/custom_nodes/comfyui-easyapi-nodes
+pip3 install --no-cache-dir -r /workspace/ComfyUI/custom_nodes/comfyui-easyapi-nodes/requirements.txt
+
 # === Download Hugging Face models ===
-download_hf SG161222/Realistic_Vision_V5.1_noVAE "$MODEL_DIR"
 download_hf runwayml/stable-diffusion-v1-5 "$MODEL_DIR"
 download_hf stabilityai/sd-vae-ft-mse "$VAE_DIR"
+
+download_hf Yntec/AbsoluteReality "$MODEL_DIR"
+download_hf comfyanonymous/ControlNet-v1-1_fp16_safetensors "$CONTROLNET_DIR"
 
 # === Download Civitai models ===
 download_civitai "$MODEL_DIR" "DreamShaper_8.safetensors" "https://civitai.com/api/download/models/128713?type=Model&format=SafeTensor&size=full&fp=fp16"
